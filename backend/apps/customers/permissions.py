@@ -1,22 +1,7 @@
-from rest_framework.permissions import BasePermission
+"""Customer-app permission imports.
 
+Keep role checks centralized so every app applies the same authorization rules.
+"""
+from apps.accounts.permissions import IsCustomer, IsAdmin
 
-class IsCustomer(BasePermission):
-    message = "Only customers can access this resource."
-
-    def has_permission(self, request, view):
-        return (
-            request.user.is_authenticated
-            and request.user.role == 'CUSTOMER'
-        )
-
-
-class IsAdmin(BasePermission):
-    message = "Only administrators can access this resource."
-
-    def has_permission(self, request, view):
-        return (
-            request.user.is_authenticated
-            and request.user.role == 'ADMIN'
-            and request.user.is_staff
-        )
+__all__ = ["IsCustomer", "IsAdmin"]
